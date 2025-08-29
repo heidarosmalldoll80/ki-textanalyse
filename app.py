@@ -29,8 +29,10 @@ def analyze():
     vectorizer = CountVectorizer(stop_words='english')  # Changed to support English stop words
     X = vectorizer.fit_transform([text])
     keywords = vectorizer.get_feature_names_out() if hasattr(vectorizer, 'get_feature_names_out') else vectorizer.get_feature_names()  
+    # Ensure keywords are returned as a list
+    keywords_list = keywords.tolist() if hasattr(keywords, 'tolist') else list(keywords)
     # Return the sentiment and keywords as JSON
-    return jsonify({'sentiment': sentiment, 'keywords': keywords.tolist()})
+    return jsonify({'sentiment': sentiment, 'keywords': keywords_list})
 
 if __name__ == '__main__':
     # Run the Flask application in debug mode
