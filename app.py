@@ -28,10 +28,10 @@ def analyze():
     # Vectorize the text to extract keywords, ignoring English stop words
     vectorizer = CountVectorizer(stop_words='english')
     X = vectorizer.fit_transform([text])
-    # Get the feature names as keywords
-    keywords = vectorizer.get_feature_names_out() if hasattr(vectorizer, 'get_feature_names_out') else vectorizer.get_feature_names()  
+    # Get the feature names as keywords, ensuring compatibility with different versions of sklearn
+    keywords = vectorizer.get_feature_names_out()  # Using get_feature_names_out() for newer versions
     # Convert the keywords to a list to ensure proper format
-    keywords_list = keywords.tolist() if hasattr(keywords, 'tolist') else list(keywords)
+    keywords_list = keywords.tolist()  # Using tolist() method likely available
     # Return the sentiment and keywords as a JSON response
     return jsonify({'sentiment': sentiment, 'keywords': keywords_list})
 
