@@ -25,13 +25,14 @@ def analyze():
     text = request.form['text']
     # Analyze sentiment of the text
     sentiment = sentiment_analyzer.polarity_scores(text)
-    # Vectorize the text to extract keywords
-    vectorizer = CountVectorizer(stop_words='english')  # Changed to support English stop words
+    # Vectorize the text to extract keywords, ignoring English stop words
+    vectorizer = CountVectorizer(stop_words='english')
     X = vectorizer.fit_transform([text])
+    # Get the feature names as keywords
     keywords = vectorizer.get_feature_names_out() if hasattr(vectorizer, 'get_feature_names_out') else vectorizer.get_feature_names()  
-    # Ensure keywords are returned as a list
+    # Convert the keywords to a list to ensure proper format
     keywords_list = keywords.tolist() if hasattr(keywords, 'tolist') else list(keywords)
-    # Return the sentiment and keywords as JSON
+    # Return the sentiment and keywords as a JSON response
     return jsonify({'sentiment': sentiment, 'keywords': keywords_list})
 
 if __name__ == '__main__':
