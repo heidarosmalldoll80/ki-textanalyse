@@ -23,7 +23,7 @@ def analyze():
     # Vectorize the text to extract keywords
     vectorizer = CountVectorizer(stop_words='english')  # Changed to support English stop words
     X = vectorizer.fit_transform([text])
-    keywords = vectorizer.get_feature_names_out()
+    keywords = vectorizer.get_feature_names_out() if hasattr(vectorizer, 'get_feature_names_out') else vectorizer.get_feature_names()
     # Return the sentiment and keywords as JSON
     return jsonify({'sentiment': sentiment, 'keywords': keywords.tolist()})
 
