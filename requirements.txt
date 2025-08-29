@@ -1,4 +1,8 @@
 # Required Python packages
+# Flask - a web framework for Python
+# nltk - Natural Language Toolkit for text processing
+# spacy - library for advanced NLP tasks
+# textblob - simplifies text processing tasks
 Flask
 nltk
 spacy
