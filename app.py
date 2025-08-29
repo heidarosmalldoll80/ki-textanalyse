@@ -16,6 +16,11 @@ def home():
 
 @app.route('/analyze', methods=['POST'])
 def analyze():
+    """Analyze the sentiment of the provided text and extract keywords.
+
+    Returns:
+        JSON object containing sentiment scores and extracted keywords.
+    """
     # Get text from the submitted form
     text = request.form['text']
     # Analyze sentiment of the text
@@ -23,7 +28,7 @@ def analyze():
     # Vectorize the text to extract keywords
     vectorizer = CountVectorizer(stop_words='english')  # Changed to support English stop words
     X = vectorizer.fit_transform([text])
-    keywords = vectorizer.get_feature_names_out() if hasattr(vectorizer, 'get_feature_names_out') else vectorizer.get_feature_names()
+    keywords = vectorizer.get_feature_names_out() if hasattr(vectorizer, 'get_feature_names_out') else vectorizer.get_feature_names()  
     # Return the sentiment and keywords as JSON
     return jsonify({'sentiment': sentiment, 'keywords': keywords.tolist()})
 
